@@ -8,28 +8,28 @@ Lines that start with # are instructions; you don't need to change them.
 """
 
 # 1. Create a variable called `greeting` holding exactly the text: Hello, AI!
-greeting = ...
+greeting = "Hello, AI!"
 
 # 2. There are 60 seconds in a minute, 60 minutes in an hour and 24 hours in a day.
 #    Use multiplication (not a number you worked out yourself) to set `seconds_per_day`.
-seconds_per_day = ...
+seconds_per_day = 60*60*24
 
 # 3. Set `my_name` to your first name, as a string.
-my_name = ...
+my_name = "Faheem"
 
 # 4. Join strings with + so that `intro` is "My name is " followed by your name.
 #    Use the `my_name` variable rather than typing your name again.
-intro = ...
+intro = "My name is " + my_name
 
 # 5. A rough rule of thumb for English text is that one LLM token is about 4 characters.
 #    Using len(), estimate how many tokens `sentence` is: its length divided by 4.
 sentence = "Python is the language of AI."
-tokens_estimate = ...
+tokens_estimate = len(sentence)/4
 
 # 6. A model trains for `epochs` rounds. Add 1 to `epochs` using the variable itself
 #    (the `x = x + 1` pattern from the lesson), so it ends up as 6.
 epochs = 5
-epochs = ...
+epochs = epochs + 1
 
 
 # ---------------------------------------------------------------------------
