@@ -46,3 +46,4 @@ python3 -m venv .venv && source .venv/bin/activate && pip install -r requirement
 | Day | Lesson |
 | --- | --- |
 | 1 | [Hello, Python](days/day-01-hello-python/lesson.md) |
+| 2 | [Numbers and Strings](days/day-02-numbers-and-strings/lesson.md) |
