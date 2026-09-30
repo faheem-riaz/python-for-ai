@@ -137,7 +137,7 @@ print("ha" * 3)         # hahaha
 print(len("tokens"))    # 6        len() counts characters
 ```
 
-You'll go deeper into numbers tomorrow and strings on Day 3.
+You'll go deeper into numbers and strings tomorrow.
 
 ## Reading error messages
 
@@ -183,4 +183,4 @@ python3 exercises.py
 
 Each ✘ comes with a hint. When everything shows ✔, compare your answers with `solutions.py`.
 
-**Tomorrow:** numbers in depth: integer vs float maths, rounding, and the two operators every programmer uses daily, `//` and `%`.
+**Tomorrow:** numbers and strings in depth: integer vs float maths, rounding, the two operators every programmer uses daily (`//` and `%`), slicing text and f-strings.
