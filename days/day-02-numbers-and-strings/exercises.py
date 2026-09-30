@@ -13,44 +13,44 @@ Use the variables you're given rather than typing the answers as fixed numbers o
 #    and `leftover` to how many examples are left over for a final, smaller batch.
 total_examples = 1000
 batch_size = 32
-full_batches = ...
-leftover = ...
+full_batches = total_examples // batch_size
+leftover = total_examples % batch_size
 
 # 2. A classifier got `correct` answers right out of `total`.
 #    Set `accuracy` to the fraction correct (a float between 0 and 1),
 #    then `accuracy_pct` to that as a percentage rounded to 1 decimal place (e.g. 87.4).
 correct = 874
 total = 1000
-accuracy = ...
-accuracy_pct = ...
+accuracy = correct / total
+accuracy_pct = round(accuracy * 100, 1)
 
 # 3. A training run took `run_seconds` seconds. Split it into whole `hours`,
 #    the remaining whole `minutes`, and the remaining `seconds`, using // and %.
 #    (There are 3600 seconds in an hour.)
 run_seconds = 7384
-hours = ...
-minutes = ...
-seconds = ...
+hours = run_seconds // 3600
+minutes = run_seconds % 3600 // 60
+seconds = run_seconds % 60
 
 # 4. Use slicing on `filename` to set:
 #    - `extension` to the last three characters ("csv")
 #    - `year` to the four digits of the year ("2026")
 #    - `stem` to everything except the final ".csv"
 filename = "training_data_2026.csv"
-extension = ...
-year = ...
-stem = ...
+extension = filename[-3:]
+year = filename[-8:-4]
+stem = filename[:-4]
 
 # 5. User input often arrives messy. Set `clean_prompt` to `raw_prompt` with the
 #    spaces at both ends removed and every letter in lowercase (chain two methods).
 raw_prompt = "   Summarise THIS Article, Please.   "
-clean_prompt = ...
+clean_prompt = raw_prompt.strip().lower()
 
 # 6. A very simple "tokeniser": set `word_count` to the number of words in `review`,
 #    and `hyphenated` to the same words joined with "-" instead of spaces.
 review = "The model was fast and the answers were accurate"
-word_count = ...
-hyphenated = ...
+word_count = len(review.split())
+hyphenated = "-".join(review.split())
 
 # 7. Build a training-log line with an f-string. Using the variables below,
 #    `log_line` must be exactly:  Epoch 3/10 - loss: 0.123
@@ -58,15 +58,15 @@ hyphenated = ...
 epoch = 3
 total_epochs = 10
 loss = 0.123456
-log_line = ...
+log_line = f"Epoch {epoch}/{total_epochs} - loss: {loss:.3f}"
 
 # 8. An LLM API charges `price_per_million` dollars per million tokens.
 #    Set `cost` to what `tokens` tokens cost, then `cost_label` to an f-string like
 #    "$0.0375 for 12,500 tokens" (cost with 4 decimals, tokens with a thousands comma).
 tokens = 12_500
 price_per_million = 3.0
-cost = ...
-cost_label = ...
+cost = ( tokens / 1000000 ) * price_per_million
+cost_label = f"${cost:.4f} for {tokens:,} tokens"
 
 
 # ---------------------------------------------------------------------------
