@@ -13,12 +13,12 @@ typed into input(). Remember: input() always gives you a string.
 #    `epochs` must be an int and `learning_rate` must be a float.
 raw_epochs = "12"
 raw_learning_rate = "0.001"
-epochs = ...
-learning_rate = ...
+epochs = int(raw_epochs)
+learning_rate = float(raw_learning_rate)
 
 # 2. Using + (not an f-string) and the `epochs` variable from exercise 1,
 #    set `summary` to exactly:  Trained for 12 epochs
-summary = ...
+summary = "Trained for " + str(epochs) + " epochs"
 
 # 3. Set each variable to a comparison (so it becomes True or False):
 #    - `reached_target`: is `loss` less than or equal to `target_loss`?
@@ -29,9 +29,9 @@ target_loss = 0.5
 confidence = 0.87
 model_a = "Claude"
 model_b = "claude"
-reached_target = ...
-valid_confidence = ...
-same_model = ...
+reached_target = loss <= target_loss
+valid_confidence = 0 < confidence < 1
+same_model = model_a.lower() == model_b.lower()
 
 # 4. Use `and`, `or` and `not` to set:
 #    - `can_call_api`: True when there is an API key AND tokens_used is below token_limit.
@@ -43,27 +43,34 @@ token_limit = 1000
 is_flagged = False
 score = 0.35
 has_internet = True
-can_call_api = ...
-needs_review = ...
-is_offline = ...
+can_call_api = has_api_key and tokens_used < token_limit
+needs_review = is_flagged or score < 0.5 
+is_offline = not has_internet
 
 # 5. Write an if / else that sets `label` to "positive" when `sentiment` is 0.5 or more,
 #    and "negative" otherwise.
 sentiment = 0.31
-label = ...
+label = "positive" if sentiment >= 0.5 else "negative"
 
 # 6. Write an if / elif / else that sets `grade` from `accuracy`:
 #    0.9 or more -> "excellent", 0.75 or more -> "good", 0.5 or more -> "fair", below 0.5 -> "poor".
 #    Think about the order of your checks!
 accuracy = 0.84
-grade = ...
+if(accuracy >= 0.9):
+    grade = "excellent"
+elif(accuracy >= 0.75):
+    grade = "good"
+elif(accuracy >= 0.5):
+    grade = "fair"
+else:
+    grade = "poor"
 
 # 7. A user typed their age, with stray spaces. If the stripped text is all digits,
 #    set `age` to it as an int. Otherwise set `age` to 0.
 #    Then set `can_sign_up` to True when age is 18 or more.
 user_age_text = " 29 "
-age = ...
-can_sign_up = ...
+age = int(user_age_text.strip())
+can_sign_up = 	True if age >= 18 else False
 
 # 8. Check an LLM temperature setting that a user typed:
 #    - If `raw_temperature` is empty (or only spaces), use 1.0. Otherwise convert it to a float.
@@ -72,9 +79,21 @@ can_sign_up = ...
 #      "creative" if it's at most 2.0, and "invalid" for anything else (including negatives).
 #    - Finally set `status_message` with an f-string, e.g. "temperature 1.7 is creative".
 raw_temperature = " 1.7 "
-temperature = ...
-status = ...
-status_message = ...
+if(raw_temperature.strip() == ""):
+    temperature = 1.0
+else:
+    temperature = float(raw_temperature.strip())
+
+if 0 <= temperature <= 0.3:
+    status = "focused"
+elif temperature <= 1.0:
+    status = "balanced"
+elif temperature <= 2.0:
+    status = "creative"
+else:
+    status = "invalid"
+
+status_message = f"temperature {temperature} is {status}"
 
 
 # ---------------------------------------------------------------------------
