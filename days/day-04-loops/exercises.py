@@ -12,31 +12,43 @@ Most answers are a loop of several lines: write it where the `...` is.
 #    Add 1 to `halvings` each time you halve it.
 learning_rate = 0.1
 halvings = 0
-...
+while learning_rate >= 0.001:
+    learning_rate = learning_rate / 2
+    halvings += 1
 
 # 2. Use a `for` loop with `range` to add up the squares of the numbers 1 to 10
 #    (1*1 + 2*2 + ... + 10*10) in `squares_total`.
 squares_total = 0
-...
+for number in range(1, 11):
+    squares_total += number * number
 
 # 3. Loop over the characters of `prompt` and count the vowels (a, e, i, o, u) in `vowels`.
 #    Upper-case vowels count too.
 prompt = "Explain attention in transformers"
 vowels = 0
-...
+for letter in prompt:
+    if letter.lower() in "aeiou":
+        vowels += 1
 
 # 4. Use `range` with a negative step to build `countdown` so that it ends up as exactly:
 #    5 4 3 2 1 liftoff
 countdown = ""
-...
+for i in range(5, 0, -1):
+    countdown += str(i) + " "
+
+countdown += "liftoff"  
+    
 
 # 5. Use `zip` to compare each prediction with its answer. Count the matches in `correct`,
 #    then set `accuracy` to the fraction that were correct (a float between 0 and 1).
 predictions = "cat dog cat bird dog".split()
 answers = "cat dog dog bird cat".split()
 correct = 0
-...
-accuracy = ...
+for pred, ans in zip(predictions, answers):
+    if pred == ans:
+        correct += 1
+
+accuracy = correct / len(predictions)
 
 # 6. `losses` holds the loss after each epoch, as strings (epoch 1 comes first).
 #    Use `enumerate` with start=1 to find the lowest loss. Store it as a float in `best_loss`
@@ -44,7 +56,13 @@ accuracy = ...
 losses = "0.9 0.7 0.4 0.35 0.5".split()
 best_epoch = 0
 best_loss = 100.0
-...
+for i, data in enumerate(losses, start = 1):
+    fl = float(data)
+    if fl < best_loss:
+        best_loss = fl
+        best_epoch = i
+
+    
 
 # 7. Loop over `stream`:
 #    - when you reach "STOP", leave the loop with `break` (nothing after it is read);
@@ -53,7 +71,14 @@ best_loss = 100.0
 stream = "12 7 skip 30 x 5 STOP 99".split()
 token_total = 0
 skipped = 0
-...
+for st in stream:
+    if st == "STOP":
+        break
+    if not st.isdigit():
+        skipped += 1
+        continue
+    else:
+        token_total += int(st)
 
 # 8. Early stopping. Loop over epochs 1 to `max_epochs`. In every epoch:
 #    - multiply `final_loss` by 0.8 and round it to 4 decimal places;
@@ -65,8 +90,12 @@ max_epochs = 50
 target_loss = 0.1
 final_loss = 1.0
 epochs_run = 0
-...
-training_report = ...
+for i in range(1, max_epochs+1):
+    final_loss =  round(final_loss * 0.8, 4)
+    epochs_run = i
+    if final_loss < target_loss:
+        break
+training_report = f"stopped after {epochs_run} epochs at loss {final_loss}"
 
 
 # ---------------------------------------------------------------------------
