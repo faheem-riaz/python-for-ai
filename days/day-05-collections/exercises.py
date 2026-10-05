@@ -14,9 +14,9 @@ Some answers are several lines: write them where the `...` is.
 #    - `output_size` to the last item (use a negative index),
 #    - `hidden_sizes` to a list of everything in between.
 layers = [784, 512, 256, 128, 10]
-input_size = ...
-output_size = ...
-hidden_sizes = ...
+input_size = layers[0]
+output_size = layers[-1]
+hidden_sizes = layers[1:-1]
 
 # 2. Change `pipeline` using list methods so that it ends up as exactly:
 #    ['load', 'clean', 'tokenize', 'train', 'evaluate']
@@ -25,7 +25,13 @@ hidden_sizes = ...
 #    - remove "debug",
 #    - replace "tokenise" with "tokenize" by assigning to its position.
 pipeline = ["load", "tokenise", "debug", "train"]
-...
+pipeline.append("evaluate")
+pipeline.insert(1, "clean")
+pipeline.remove("debug")
+del pipeline[2]
+pipeline.insert(2, "tokenize")
+
+
 
 # 3. Statistics for a training run, using built-in functions (no loops needed):
 #    - `lowest` and `highest`: the smallest and largest loss,
@@ -33,10 +39,10 @@ pipeline = ["load", "tokenise", "debug", "train"]
 #    - `best_three`: a NEW list of the three smallest losses, smallest first.
 #    `losses` itself must stay in its original order.
 losses = [0.52, 0.31, 0.47, 0.29, 0.38, 0.33]
-lowest = ...
-highest = ...
-average = ...
-best_three = ...
+lowest = min(losses)
+highest = max(losses)
+average = round(sum(losses) / len(losses), 2)
+best_three = sorted(losses)[:3]
 
 # 4. `raw_scores` is a list of strings. With a loop and `append`, fill:
 #    - `scores` with every score as a float,
@@ -44,7 +50,13 @@ best_three = ...
 raw_scores = "0.91 0.45 0.78 0.30 0.66 0.50".split()
 scores = []
 passed = []
-...
+for text in raw_scores:
+    float_value = float(text)
+    scores.append(float_value)
+    if float_value >= 0.5:
+        passed.append(float_value) 
+
+
 
 # 5. Tuples.
 #    - Unpack `image_shape` in one line into the variables `batch`, `channels`, `height`, `width`.
@@ -53,8 +65,9 @@ passed = []
 image_shape = (32, 3, 224, 224)
 train_size = 2000
 test_size = 8000
-...
-pixels = ...
+batch, channels, height, width = image_shape
+pixels = height * width
+train_size, test_size = test_size, train_size
 
 # 6. `results` is a list of (model name, accuracy) tuples. Loop over it, unpacking each tuple, to set:
 #    - `best_model` and `best_accuracy`: the name and accuracy of the most accurate model,
@@ -63,7 +76,15 @@ results = [("gpt", 0.91), ("bert", 0.88), ("t5", 0.79), ("llama", 0.93), ("elmo"
 best_model = ""
 best_accuracy = 0.0
 strong_models = []
-...
+for model_name, model_accuracy in results:
+    if best_accuracy < model_accuracy:
+        best_accuracy = model_accuracy
+        best_model = model_name
+    if model_accuracy >= 0.85:
+        strong_models.append(model_name)
+
+    
+    
 
 # 7. Sets. Both variables below are lists of words.
 #    - `vocabulary`: a set of the distinct words in `train_words`,
@@ -72,10 +93,10 @@ strong_models = []
 #    - `shared_sorted`: a sorted LIST of the words that appear in both.
 train_words = "the cat sat on the mat and the dog sat on the rug".split()
 test_words = "the bird sat on the cat and sang".split()
-vocabulary = ...
-vocabulary_size = ...
-unseen = ...
-shared_sorted = ...
+vocabulary = set(train_words)
+vocabulary_size = len(vocabulary)
+unseen = set(test_words) - vocabulary
+shared_sorted = sorted(vocabulary & set(test_words))
 
 # 8. A tiny tokenizer. LLMs don't read words; they read numbers called token ids.
 #    - `vocab`: a sorted list of the distinct words in `sentence` (lower-case it first, then split),
@@ -84,10 +105,17 @@ shared_sorted = ...
 #    - `decoded`: turn `token_ids` back into text: look each id up in `vocab`
 #      and join the words with single spaces.
 sentence = "The model reads the tokens and the model writes tokens"
-vocab = ...
+vocab = sorted(set(sentence.lower().split()))
 token_ids = []
-...
-decoded = ...
+lower_case = sentence.lower().split()
+for word in lower_case:
+    token_ids.append(vocab.index(word))
+
+decoded_words = []
+for index in token_ids:
+    decoded_words.append(vocab[index])
+
+decoded = " ".join(decoded_words)
 
 
 # ---------------------------------------------------------------------------
