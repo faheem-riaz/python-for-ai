@@ -50,3 +50,4 @@ python3 -m venv .venv && source .venv/bin/activate && pip install -r requirement
 | 3 | [Input and Decisions](days/day-03-input-and-decisions/lesson.md) |
 | 4 | [Loops](days/day-04-loops/lesson.md) |
 | 5 | [Collections: Lists, Tuples and Sets](days/day-05-collections/lesson.md) |
+| 6 | [Dictionaries and Comprehensions](days/day-06-dictionaries-and-comprehensions/lesson.md) |
